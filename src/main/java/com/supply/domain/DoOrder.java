@@ -25,7 +25,6 @@ public class DoOrder implements Serializable {
     /**
      * 关联用户表唯一标识
      */
-    @NotBlank(message = "openId不能为空")
     private String openId;
 
     /**
@@ -34,15 +33,45 @@ public class DoOrder implements Serializable {
     @NotNull(message = "关联商品不能为空")
     private Integer supplyNo;
 
+    private String supplyName;
     /**
      * 订单状态，默认：未付款，确认：已付款
      */
     private String status;
 
+    private Integer type;
+
     /**
      * 商品总价
      */
     private BigDecimal price;
+
+    private Integer userId;
+    private Integer addressId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getSupplyName() {
+        return supplyName;
+    }
+
+    public void setSupplyName(String supplyName) {
+        this.supplyName = supplyName;
+    }
 
     /**
      * 创建时间
@@ -96,6 +125,14 @@ public class DoOrder implements Serializable {
 
     public void setCreateTime(Integer createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override

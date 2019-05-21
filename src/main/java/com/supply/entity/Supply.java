@@ -32,7 +32,7 @@ public class Supply implements Serializable {
 
     private String image;
 
-    private Integer status;
+    private String status;
 
     /**
      * 商品描述
@@ -113,11 +113,11 @@ public class Supply implements Serializable {
         this.image = image;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

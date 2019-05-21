@@ -10,11 +10,14 @@ import com.supply.entity.Address;
 import com.supply.mapper.AddressMapper;
 import com.supply.service.IAddressService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.supply.service.IUserService;
 import com.supply.util.DateUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.xml.ws.Action;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,11 @@ import java.util.Map;
  */
 @Service
 public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> implements IAddressService {
+
+    @Autowired
+    private IUserService iUserService;
+    @Autowired
+    private IAddressService iAddressService;
 
     @Override
     public KkbResponse getDetails(Integer id) {
@@ -53,6 +61,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
             {
                 JSONObject jsonObject = (JSONObject) JSON.toJSON(address);
                 jsonObject.remove("createTime");
+                jsonObject.put("userName", iUserService.getUserByOpenId(openId).getName());
                 jsonObject.put("createTime", DateUtil.formatDate(address.getCreateTime().longValue()));
                 list.add(jsonObject);
             });
@@ -106,5 +115,10 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
             return new KkbResponse(KkbStatus.SUCCESS);
         }
         return new KkbResponse(KkbStatus.FAILURE);
+    }
+
+    @Override
+    public String getUserName(Integer id) {
+        return baseMapper.selectById(id).getName();
     }
 }

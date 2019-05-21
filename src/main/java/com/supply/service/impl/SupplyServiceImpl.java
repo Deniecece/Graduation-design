@@ -51,7 +51,11 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
                 queryWrapper.like("name", condition.get("name"));
             }
             if(condition.containsKey("type") && !"".equals(condition.get("type"))) {
-                queryWrapper.eq("type", condition.get("type"));
+                if(condition.get("type").toString().contains(",")) {
+                    queryWrapper.in("type", condition.get("type").toString().split(","));
+                } else {
+                    queryWrapper.eq("type", condition.get("type"));
+                }
             }
             if(condition.containsKey("status")) {
                 queryWrapper.in("status", CollectionUtils.arrayToList(condition.get("status").toString().split(",")));
@@ -84,6 +88,7 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
     public KkbResponse addSupply(DoSupply doSupply) {
         Supply supply = new Supply();
         BeanUtils.copyProperties(doSupply, supply);
+        supply.setOpenId("wx90oofasd");
         supply.setCreateTime(DateUtil.getCurrentTime());
         int result = baseMapper.insert(supply);
         if(result == 1) {
@@ -142,7 +147,6 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
         if(supply == null) {
             return false;
         }
-        supply.setStatus(1);
         int result = baseMapper.updateById(supply);
         if(result == 1) {
             return true;

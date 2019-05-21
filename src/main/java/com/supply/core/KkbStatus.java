@@ -10,11 +10,11 @@ public enum KkbStatus implements KkbWebStatus {
     /**
      *  成功
      */
-    SUCCESS(0 , "Success"),
+    SUCCESS(0 , "操作成功！"),
     /**
      * 失败
      */
-    FAILURE(1 , "Failure"),
+    FAILURE(1 , "操作失败！"),
     /**
      *  数据不存在
      */

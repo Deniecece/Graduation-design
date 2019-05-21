@@ -32,6 +32,13 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
+    public User getUserByOpenId(String openId) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("open_id", openId);
+        return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
     public KkbResponse getByOpenId(String openId) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", openId);

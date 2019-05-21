@@ -23,7 +23,6 @@ public class DoSupply implements Serializable {
 
     private Integer id;
 
-    @NotBlank(message = "openId不能为空")
     private String openId;
     @NotBlank(message = "名称不能为空")
     private String name;
@@ -35,6 +34,7 @@ public class DoSupply implements Serializable {
     private String type;
 
     private String image;
+    private String status;
 
     /**
      * 商品描述
@@ -47,10 +47,17 @@ public class DoSupply implements Serializable {
     @NotNull(message = "价格不能为空")
     private BigDecimal price;
 
-    private Integer createTime;
+    private String createTime;
 
-    private LocalDateTime updateTime;
+    private String updateTime;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -92,19 +99,19 @@ public class DoSupply implements Serializable {
         this.price = price;
     }
 
-    public Integer getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public LocalDateTime getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

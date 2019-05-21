@@ -18,6 +18,8 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
 
+    User getUserByOpenId(String openId);
+
     KkbResponse getByOpenId(String openId);
 
     KkbResponse getList(KkbPage kkbPage);

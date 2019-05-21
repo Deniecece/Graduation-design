@@ -25,4 +25,6 @@ public interface IAddressService extends IService<Address> {
     KkbResponse updateAddress(DoAddress doAddress);
 
     KkbResponse delAddress(String id);
+
+    String getUserName(Integer id);
 }
