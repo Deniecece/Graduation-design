@@ -1,8 +1,8 @@
 package com.supply.controller;
 
 
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoSupply;
 import com.supply.service.ISupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 /**
  * <p>
- *  前端控制器
+ *  商品部分前端控制器
  * </p>
  *
  * @author Deniecece
@@ -28,7 +28,7 @@ public class SupplyController {
      * 详情
      */
     @GetMapping("/supply/{id}")
-    public KkbResponse getDetails(@PathVariable Integer id) {
+    public MallResponse getDetails(@PathVariable Integer id) {
         return iSupplyService.getDetails(id);
     }
 
@@ -36,14 +36,14 @@ public class SupplyController {
      * 列表-分页
      */
     @PostMapping("/supply/list")
-    public KkbResponse getList(@RequestBody KkbPage kkbPage) {
-        return iSupplyService.selectList(kkbPage);
+    public MallResponse getList(@RequestBody MallPage MallPage) {
+        return iSupplyService.selectList(MallPage);
     }
     /**
      * 添加
      */
     @PostMapping("/supply")
-    public KkbResponse addSupply(@RequestBody @Valid DoSupply doSupply){
+    public MallResponse addSupply(@RequestBody @Valid DoSupply doSupply){
         return iSupplyService.addSupply(doSupply);
     }
 
@@ -51,7 +51,7 @@ public class SupplyController {
      * 修改
      */
     @PutMapping("/supply")
-    public KkbResponse updateSupply(@RequestBody @Valid DoSupply reqForm){
+    public MallResponse updateSupply(@RequestBody @Valid DoSupply reqForm){
         return iSupplyService.updateSupply(reqForm);
     }
 
@@ -59,7 +59,7 @@ public class SupplyController {
      * 删除
      */
     @DeleteMapping("/supply/{id}")
-    public KkbResponse delSupply(@PathVariable String id){
+    public MallResponse delSupply(@PathVariable String id){
         return iSupplyService.delSupply(id);
     }
 
@@ -67,7 +67,7 @@ public class SupplyController {
      * 最新发布
      */
     @GetMapping("/supply/new")
-    public KkbResponse getNewSupply() {
+    public MallResponse getNewSupply() {
         return iSupplyService.getNewSupply();
     }
 }

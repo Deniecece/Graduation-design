@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-@MapperScan("com.supply.mapper")
 @SpringBootApplication
 public class SupplyApplication {
 

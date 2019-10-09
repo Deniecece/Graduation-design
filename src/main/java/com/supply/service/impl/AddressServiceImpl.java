@@ -3,15 +3,15 @@ package com.supply.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.supply.core.KkbResponse;
-import com.supply.core.KkbStatus;
+import com.supply.core.MallResponse;
+import com.supply.core.MallStatus;
 import com.supply.domain.DoAddress;
 import com.supply.entity.Address;
 import com.supply.mapper.AddressMapper;
 import com.supply.service.IAddressService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.supply.service.IUserService;
-import com.supply.util.DateUtil;
+import com.supply.util.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,19 +39,19 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     private IAddressService iAddressService;
 
     @Override
-    public KkbResponse getDetails(Integer id) {
+    public MallResponse getDetails(Integer id) {
         Address address = baseMapper.selectById(id);
         if(address == null) {
-            return new KkbResponse(KkbStatus.NO_DATA);
+            return new MallResponse(MallStatus.NO_DATA);
         }
         JSONObject jsonObject = (JSONObject) JSON.toJSON(address);
         jsonObject.remove("createTime");
-        jsonObject.put("createTime", DateUtil.formatDate(address.getCreateTime().longValue()));
-        return new KkbResponse(jsonObject);
+        jsonObject.put("createTime", DateUtils.formatDate(address.getCreateTime().longValue()));
+        return new MallResponse(jsonObject);
     }
 
     @Override
-    public KkbResponse selectByOpenId(String openId) {
+    public MallResponse selectByOpenId(String openId) {
         List<Map<String, Object>> list = new ArrayList<>();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", openId);
@@ -62,15 +62,15 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
                 JSONObject jsonObject = (JSONObject) JSON.toJSON(address);
                 jsonObject.remove("createTime");
                 jsonObject.put("userName", iUserService.getUserByOpenId(openId).getName());
-                jsonObject.put("createTime", DateUtil.formatDate(address.getCreateTime().longValue()));
+                jsonObject.put("createTime", DateUtils.formatDate(address.getCreateTime().longValue()));
                 list.add(jsonObject);
             });
         }
-        return new KkbResponse(list);
+        return new MallResponse(list);
     }
 
     @Override
-    public KkbResponse addAddress(DoAddress doAddress) {
+    public MallResponse addAddress(DoAddress doAddress) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("open_id", doAddress.getOpenId());
         queryWrapper.eq("mobile", doAddress.getMobile());
@@ -78,43 +78,43 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         queryWrapper.eq("address", doAddress.getAddress());
         Address address = baseMapper.selectOne(queryWrapper);
         if(address != null) {
-            return new KkbResponse(KkbStatus.DATA_EXIST);
+            return new MallResponse(MallStatus.DATA_EXIST);
         }
         address = new Address();
         BeanUtils.copyProperties(doAddress, address);
-        address.setCreateTime(DateUtil.getCurrentTime());
+        address.setCreateTime(DateUtils.getCurrentTime());
         int result = baseMapper.insert(address);
         if(result == 1) {
-            return new KkbResponse(KkbStatus.SUCCESS);
+            return new MallResponse(MallStatus.SUCCESS);
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override
-    public KkbResponse updateAddress(DoAddress doAddress) {
+    public MallResponse updateAddress(DoAddress doAddress) {
         Address address = baseMapper.selectById(doAddress.getId());
         if(address == null) {
-            return new KkbResponse(KkbStatus.NO_DATA);
+            return new MallResponse(MallStatus.NO_DATA);
         }
         BeanUtils.copyProperties(doAddress, address);
         int result = baseMapper.updateById(address);
         if(result == 1) {
-            return new KkbResponse(KkbStatus.SUCCESS);
+            return new MallResponse(MallStatus.SUCCESS);
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override
-    public KkbResponse delAddress(String id) {
+    public MallResponse delAddress(String id) {
         Address address = baseMapper.selectById(id);
         if(address == null) {
-            return new KkbResponse(KkbStatus.NO_DATA);
+            return new MallResponse(MallStatus.NO_DATA);
         }
         int result = baseMapper.deleteById(id);
         if(result == 1) {
-            return new KkbResponse(KkbStatus.SUCCESS);
+            return new MallResponse(MallStatus.SUCCESS);
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.supply.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoOrder;
 import com.supply.entity.TOrder;
 
@@ -16,14 +16,14 @@ import com.supply.entity.TOrder;
  */
 public interface IOrderService extends IService<TOrder> {
 
-    KkbResponse getDetails(Integer id);
+    MallResponse getDetails(Integer id);
 
-    KkbResponse selectByOpenId(String openId, KkbPage kkbPage);
+    MallResponse selectByOpenId(String openId, MallPage MallPage);
 
-    KkbResponse updateOrder(DoOrder doOrder);
+    MallResponse updateOrder(DoOrder doOrder);
 
-    KkbResponse addOrder(DoOrder doOrder);
+    MallResponse addOrder(DoOrder doOrder);
 
-    KkbResponse delOrder(Integer id);
+    MallResponse delOrder(Integer id);
 
 }

@@ -25,7 +25,7 @@ public class TOrder implements Serializable {
      */
     private String openId;
 
-    private Integer type;
+    private String type;
     /**
      * 关联商品名称
      */
@@ -84,11 +84,11 @@ public class TOrder implements Serializable {
         this.addressName = addressName;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

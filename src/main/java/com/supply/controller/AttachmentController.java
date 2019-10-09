@@ -1,7 +1,7 @@
 package com.supply.controller;
 
 
-import com.supply.core.KkbResponse;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoAttachment;
 import com.supply.service.IAttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 /**
  * <p>
- *  前端控制器
+ *  附件部分前端控制器
  * </p>
  *
  * @author Deniecece
@@ -28,7 +28,7 @@ public class AttachmentController {
     IAttachmentService iAttachmentService;
 
     @PostMapping("/attachment")
-    public KkbResponse addAttachment(@RequestBody @Valid DoAttachment doAttachment) {
+    public MallResponse addAttachment(@RequestBody @Valid DoAttachment doAttachment) {
         return iAttachmentService.addAttachment(doAttachment);
     }
 }

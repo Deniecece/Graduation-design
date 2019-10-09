@@ -1,6 +1,6 @@
 package com.supply.service;
 
-import com.supply.core.KkbResponse;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoAttachment;
 import com.supply.entity.Attachment;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAttachmentService extends IService<Attachment> {
 
-    KkbResponse addAttachment(DoAttachment doAttachment);
+    MallResponse addAttachment(DoAttachment doAttachment);
 }

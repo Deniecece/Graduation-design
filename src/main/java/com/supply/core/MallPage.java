@@ -10,10 +10,10 @@ import java.util.Map;
  * 简单分页模型
  * </p>
  *
- * @author hubin
+ * @author Deniecece
  * @since 2018-06-09
  */
-public class KkbPage<T> extends Page<T> {
+public class MallPage<T> extends Page<T> {
 
     private static final long serialVersionUID = 8545996863226528798L;
 

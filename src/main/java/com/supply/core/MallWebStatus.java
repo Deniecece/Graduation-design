@@ -1,6 +1,6 @@
 package com.supply.core;
 
-public interface KkbWebStatus {
+public interface MallWebStatus {
 
     int getCode();
 

@@ -10,6 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Scanner;
 
+/**
+ * <p>
+ *  实体类、代码自定生成器
+ * </p>
+ *
+ * @author Deniecece
+ * @since 2019-10-09
+ */
 public class CodeGenerator {
     /**
      * <p>
@@ -37,7 +45,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         // 谨记修改输出目录
-        String projectPath = "/Users/kkb/supply";
+        String projectPath = "/Users/Mall/supply";
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("Deniecece");
         gc.setOpen(true);
@@ -63,7 +71,7 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(false);
         strategy.setRestControllerStyle(true);
         // 基本控制器
-//        strategy.setSuperControllerClass("com.kkb.core.web.KkbController");
+//        strategy.setSuperControllerClass("com.Mall.core.web.MallController");
 //        strategy.setControllerMappingHyphenStyle(true);
         mpg.setStrategy(strategy);
         mpg.execute();

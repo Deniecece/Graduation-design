@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 
 /**
- * @author kkb
+ * @author Deniecece
  */
-public class KkbResponse implements Serializable {
+public class MallResponse implements Serializable {
 
 
     private static final long serialVersionUID = -7318467237446066728L;
@@ -20,25 +20,25 @@ public class KkbResponse implements Serializable {
     private Object data;
 
 
-    public KkbResponse() {
-        this(KkbStatus.SUCCESS, null);
+    public MallResponse() {
+        this(MallStatus.SUCCESS, null);
     }
 
-    public KkbResponse(Object data) {
-        this(KkbStatus.SUCCESS, data);
+    public MallResponse(Object data) {
+        this(MallStatus.SUCCESS, data);
     }
 
-    public KkbResponse(KkbWebStatus kkbWebStatus) {
-        this(kkbWebStatus, null);
+    public MallResponse(MallWebStatus MallWebStatus) {
+        this(MallWebStatus, null);
     }
 
-    public KkbResponse(KkbWebStatus kkbWebStatus, Object data) {
-        this.code = kkbWebStatus.getCode();
-        this.msg = kkbWebStatus.getMsg();
+    public MallResponse(MallWebStatus MallWebStatus, Object data) {
+        this.code = MallWebStatus.getCode();
+        this.msg = MallWebStatus.getMsg();
         this.data = data;
     }
 
-    public KkbResponse(int code, String msg) {
+    public MallResponse(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

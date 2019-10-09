@@ -1,7 +1,7 @@
 package com.supply.service;
 
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoSupply;
 import com.supply.entity.Supply;
 import com.supply.entity.Supply;
@@ -19,17 +19,17 @@ import java.util.List;
  */
 public interface ISupplyService extends IService<Supply> {
 
-    KkbResponse getDetails(Integer id);
+    MallResponse getDetails(Integer id);
 
-    KkbResponse selectList(KkbPage kkbPage);
+    MallResponse selectList(MallPage MallPage);
 
-    KkbResponse addSupply(DoSupply doSupply);
+    MallResponse addSupply(DoSupply doSupply);
 
-    KkbResponse updateSupply(DoSupply doSupply);
+    MallResponse updateSupply(DoSupply doSupply);
 
-    KkbResponse delSupply(String id);
+    MallResponse delSupply(String id);
 
-    KkbResponse getNewSupply();
+    MallResponse getNewSupply();
 
     boolean updateStatus(Integer id);
 }

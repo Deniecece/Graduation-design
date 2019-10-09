@@ -30,7 +30,6 @@ public class DoOrder implements Serializable {
     /**
      * 关联商品名称
      */
-    @NotNull(message = "关联商品不能为空")
     private Integer supplyNo;
 
     private String supplyName;

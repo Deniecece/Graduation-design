@@ -11,9 +11,7 @@ public class HttpUtilTest {
     @Test
     public void httpTest() {
 
-//        String url = "http://localhost:8080/goods/list";
         String url = "https://api.weixin.qq.com/sns/jscode2session";
-//        String url = "http://localhost:8080/goods/get?id=20";
 
         Map<String, String> param = new HashMap<>();
 //        param.put("id", "20");
@@ -23,7 +21,7 @@ public class HttpUtilTest {
         param.put("grant_type", "authorization_code");
 
 //        String resBean = HttpUtil.postHttpForJson(url, param);
-        String resBean = HttpUtil.getHttpForUrl(url, param);
+        String resBean = HttpUtil.getForUrl(url, param);
         System.out.println(resBean);
 
     }

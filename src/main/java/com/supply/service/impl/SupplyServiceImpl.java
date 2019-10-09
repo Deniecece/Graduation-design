@@ -4,14 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
-import com.supply.core.KkbStatus;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
+import com.supply.core.MallStatus;
 import com.supply.domain.DoSupply;
 import com.supply.entity.Supply;
 import com.supply.mapper.SupplyMapper;
 import com.supply.service.ISupplyService;
-import com.supply.util.DateUtil;
+import com.supply.util.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,19 +33,20 @@ import java.util.Map;
 public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> implements ISupplyService {
 
     @Override
-    public KkbResponse getDetails(Integer id) {
+    public MallResponse getDetails(Integer id) {
         Supply supply = baseMapper.selectById(id);
         JSONObject jsonObject = (JSONObject) JSON.toJSON(supply);
         jsonObject.remove("createTime");
-        jsonObject.put("createTime", DateUtil.formatDate(supply.getCreateTime().longValue()));
-        return new KkbResponse(jsonObject);
+        jsonObject.put("createTime", DateUtils.formatDate(supply.getCreateTime().longValue()));
+        return new MallResponse(jsonObject);
     }
 
     @Override
-    public KkbResponse selectList(KkbPage kkbPage) {
+    public MallResponse selectList(MallPage MallPage) {
         List<Map<String, Object>> list = new ArrayList<>();
-        Map<String, Object> condition = kkbPage.getCondition();
+        Map<String, Object> condition = MallPage.getCondition();
         QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.orderByDesc("create_time");
         if(condition != null) {
             if(condition.containsKey("name") && !"".equals(condition.get("name"))) {
                 queryWrapper.like("name", condition.get("name"));
@@ -57,7 +58,7 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
                     queryWrapper.eq("type", condition.get("type"));
                 }
             }
-            if(condition.containsKey("status")) {
+            if(condition.containsKey("status") && !"全部".equals(condition.get("status").toString())) {
                 queryWrapper.in("status", CollectionUtils.arrayToList(condition.get("status").toString().split(",")));
             }
             if(condition.containsKey("openId")) {
@@ -68,64 +69,66 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
         supplies.forEach(supply -> {
             JSONObject jsonObject = (JSONObject) JSON.toJSON(supply);
             jsonObject.remove("createTime");
-            jsonObject.put("createTime", DateUtil.formatDate(supply.getCreateTime().longValue()));
+            jsonObject.put("createTime", DateUtils.formatDate(supply.getCreateTime().longValue()));
             list.add(jsonObject);
         });
-        int currentStart = ((int)kkbPage.getCurrent()-1) * (int)kkbPage.getSize();
-        int currentEnd = (int)kkbPage.getCurrent() * (int)kkbPage.getSize();
+        int currentStart = ((int)MallPage.getCurrent()-1) * (int)MallPage.getSize();
+        int currentEnd = (int)MallPage.getCurrent() * (int)MallPage.getSize();
         if(currentStart > list.size()) {
-            kkbPage.setRecords(null);
+            MallPage.setRecords(null);
         } else {
-            kkbPage.setRecords(supplies.size() > (int)kkbPage.getSize() ?
+            MallPage.setRecords(supplies.size() > (int)MallPage.getSize() ?
                     (currentEnd < supplies.size() ? list.subList(currentStart, currentEnd) : list.subList(currentStart, list.size())) :
                     list);
         }
-        kkbPage.setTotal(new Long(list.size()));
-        return new KkbResponse(kkbPage);
+        MallPage.setTotal(new Long(list.size()));
+        return new MallResponse(MallPage);
     }
 
     @Override
-    public KkbResponse addSupply(DoSupply doSupply) {
+    public MallResponse addSupply(DoSupply doSupply) {
         Supply supply = new Supply();
         BeanUtils.copyProperties(doSupply, supply);
         supply.setOpenId("wx90oofasd");
-        supply.setCreateTime(DateUtil.getCurrentTime());
+        supply.setStatus("未出售");
+        supply.setCreateTime(DateUtils.getCurrentTime());
+        supply.setImage("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558591351328&di=fb4b51e6bc5de20cea0c6d9f4ec37b02&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fsubject%2Fl%2Fpublic%2Fs29544766.jpg");
         int result = baseMapper.insert(supply);
         if(result == 1) {
-            return new KkbResponse();
+            return new MallResponse();
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override
-    public KkbResponse updateSupply(DoSupply doSupply) {
+    public MallResponse updateSupply(DoSupply doSupply) {
         Supply supply = getById(doSupply.getId());
         if(supply == null) {
-            return new KkbResponse(KkbStatus.NO_DATA);
+            return new MallResponse(MallStatus.NO_DATA);
         }
         BeanUtils.copyProperties(doSupply, supply);
         int result = baseMapper.updateById(supply);
         if(result == 1) {
-            return new KkbResponse();
+            return new MallResponse();
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override
-    public KkbResponse delSupply(String id) {
+    public MallResponse delSupply(String id) {
         Supply supply = getById(id);
         if(supply == null) {
-            return new KkbResponse(KkbStatus.NO_DATA);
+            return new MallResponse(MallStatus.NO_DATA);
         }
         int result = baseMapper.deleteById(id);
         if(result == 1) {
-            return new KkbResponse();
+            return new MallResponse();
         }
-        return new KkbResponse(KkbStatus.FAILURE);
+        return new MallResponse(MallStatus.FAILURE);
     }
 
     @Override
-    public KkbResponse getNewSupply() {
+    public MallResponse getNewSupply() {
         List<Map<String, Object>> data = new ArrayList<>();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.orderByDesc("create_time");
@@ -134,10 +137,10 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
         list.forEach(supply -> {
             JSONObject jsonObject = (JSONObject) JSON.toJSON(supply);
             jsonObject.remove("createTime");
-            jsonObject.put("createTime", DateUtil.formatDate(supply.getCreateTime().longValue()));
+            jsonObject.put("createTime", DateUtils.formatDate(supply.getCreateTime().longValue()));
             data.add(jsonObject);
         });
-        return new KkbResponse(data);
+        return new MallResponse(data);
     }
 
     @Override
@@ -147,6 +150,7 @@ public class SupplyServiceImpl extends ServiceImpl<SupplyMapper, Supply> impleme
         if(supply == null) {
             return false;
         }
+        supply.setStatus("已出售");
         int result = baseMapper.updateById(supply);
         if(result == 1) {
             return true;

@@ -2,8 +2,8 @@ package com.supply.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoUser;
 import com.supply.entity.User;
 import com.google.common.collect.Maps;
@@ -19,6 +19,14 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>
+ *  用户部分前端控制器
+ * </p>
+ *
+ * @author Deniecece
+ * @since 2019-04-16
+ */
 @RestController
 public class UserController {
 
@@ -32,8 +40,8 @@ public class UserController {
      * 列表
      */
     @PostMapping("/user/list")
-    public KkbResponse getList(@RequestBody KkbPage kkbPage) {
-        return iUserService.getList(kkbPage);
+    public MallResponse getList(@RequestBody MallPage MallPage) {
+        return iUserService.getList(MallPage);
     }
 
     /**
@@ -59,7 +67,7 @@ public class UserController {
      * 新增
      */
     @PostMapping("/user")
-    public KkbResponse addUser(@RequestBody @Valid DoUser doUser) {
+    public MallResponse addUser(@RequestBody @Valid DoUser doUser) {
         return iUserService.addUser(doUser);
     }
 

@@ -7,6 +7,13 @@ spring:
     url: jdbc:mysql://localhost:3306/stusupply?characterEncoding=UTF-8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  max-time: 100000
+mybatis-plus:
+  type-aliases-package: com.supply.entity
+  configuration:
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql日志
 
 wx:
   miniapp:

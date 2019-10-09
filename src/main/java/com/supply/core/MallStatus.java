@@ -1,12 +1,12 @@
 package com.supply.core;
 
 /**
- * KkbBaseStatus class description
+ * MallBaseStatus class description
  *
- * @author lbzheng@kaikeba.com
+ * @author Deniecece
  * @date 2019-03-21
  */
-public enum KkbStatus implements KkbWebStatus {
+public enum MallStatus implements MallWebStatus {
     /**
      *  成功
      */
@@ -74,7 +74,7 @@ public enum KkbStatus implements KkbWebStatus {
     private int code;
     private String msg;
 
-    KkbStatus(int code, String msg) {
+    MallStatus(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

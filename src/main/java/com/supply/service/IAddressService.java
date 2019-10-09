@@ -3,7 +3,7 @@ package com.supply.service;
 import com.supply.entity.Address;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.supply.domain.DoAddress;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallResponse;
 import java.util.List;
 
 /**
@@ -16,15 +16,15 @@ import java.util.List;
  */
 public interface IAddressService extends IService<Address> {
 
-    KkbResponse getDetails(Integer id);
+    MallResponse getDetails(Integer id);
 
-    KkbResponse selectByOpenId(String openId);
+    MallResponse selectByOpenId(String openId);
 
-    KkbResponse addAddress(DoAddress doAddress);
+    MallResponse addAddress(DoAddress doAddress);
 
-    KkbResponse updateAddress(DoAddress doAddress);
+    MallResponse updateAddress(DoAddress doAddress);
 
-    KkbResponse delAddress(String id);
+    MallResponse delAddress(String id);
 
     String getUserName(Integer id);
 }

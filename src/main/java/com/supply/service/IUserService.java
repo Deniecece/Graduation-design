@@ -1,7 +1,7 @@
 package com.supply.service;
 
-import com.supply.core.KkbPage;
-import com.supply.core.KkbResponse;
+import com.supply.core.MallPage;
+import com.supply.core.MallResponse;
 import com.supply.domain.DoUser;
 import com.supply.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -20,9 +20,9 @@ public interface IUserService extends IService<User> {
 
     User getUserByOpenId(String openId);
 
-    KkbResponse getByOpenId(String openId);
+    MallResponse getByOpenId(String openId);
 
-    KkbResponse getList(KkbPage kkbPage);
+    MallResponse getList(MallPage MallPage);
 
-    KkbResponse addUser(DoUser doUser);
+    MallResponse addUser(DoUser doUser);
 }

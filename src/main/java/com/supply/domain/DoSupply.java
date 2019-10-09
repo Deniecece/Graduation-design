@@ -24,13 +24,11 @@ public class DoSupply implements Serializable {
     private Integer id;
 
     private String openId;
-    @NotBlank(message = "名称不能为空")
     private String name;
 
     /**
      * 商品类型
      */
-    @NotBlank(message = "类型不能为空")
     private String type;
 
     private String image;
@@ -44,7 +42,6 @@ public class DoSupply implements Serializable {
     /**
      * 商品价格
      */
-    @NotNull(message = "价格不能为空")
     private BigDecimal price;
 
     private String createTime;

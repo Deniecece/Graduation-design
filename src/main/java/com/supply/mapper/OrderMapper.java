@@ -14,6 +14,6 @@ import org.apache.ibatis.annotations.Insert;
  */
 public interface OrderMapper extends BaseMapper<TOrder> {
 
-    @Insert("INSERT INTO `order` (open_id, supply_no, `status`, price, create_time) VALUES (#{openId}, #{supplyNo}, #{status}, #{price}, #{createTime})")
+    @Insert("INSERT INTO `t_order` (open_id, supply_no, `status`, price, create_time) VALUES (#{openId}, #{supplyNo}, #{status}, #{price}, #{createTime})")
     int inserta(TOrder order);
 }
